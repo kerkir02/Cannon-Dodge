@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class CanonFire : MonoBehaviour
 {
-    public float reloadTime = 10;
+    [SerializeField] private float reloadTime = 10;
+    [SerializeField] private float cannonBallSpeed = 5;
+    [SerializeField] private float cannonBallBorder = 10;
     [SerializeField] private GameObject cannonBall;
-    public float cannonBallSpeed = 5;
-    public float cannonBallBorder = 10;
     [SerializeField] private GameObject fuse;
-    [SerializeField] private GameObject firePoint;
+    [SerializeField] private Transform firePoint;
 
     private Vector2 direction;
 

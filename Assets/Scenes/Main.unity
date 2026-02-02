@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ba78232a6428445aa7c256b31be9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  speed: 8
+  braking: 0.97
 --- !u!50 &105444706
 Rigidbody2D:
   serializedVersion: 5
@@ -1457,11 +1459,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CanonFire
   reloadTime: 10
-  cannonBall: {fileID: 1975114748}
-  cannonBallSpeed: 5
+  cannonBallSpeed: 25
   cannonBallBorder: 10
+  cannonBall: {fileID: 1975114748}
   fuse: {fileID: 349824254}
-  firePoint: {fileID: 1230392537}
+  firePoint: {fileID: 1230392538}
 --- !u!50 &1506094186
 Rigidbody2D:
   serializedVersion: 5
