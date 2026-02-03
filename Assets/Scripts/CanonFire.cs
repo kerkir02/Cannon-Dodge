@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class CanonFire : MonoBehaviour
 {
-    [SerializeField] private float reloadTime = 10;
+    [SerializeField] private float reloadTime = 5;
     [SerializeField] private float cannonBallSpeed = 5;
     [SerializeField] private float cannonBallBorder = 10;
     [SerializeField] private GameObject cannonBall;
     [SerializeField] private GameObject fuse;
     [SerializeField] private Transform firePoint;
 
-    private Vector2 direction;
-
     private GameObject player;
     private Rigidbody2D cannonRb;
     private Rigidbody2D cannonBallRb;
 
+    private Vector2 direction;
     private float timer;
+    private bool IsInRange;
+    private bool IsInFireMode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,32 +28,37 @@ public class CanonFire : MonoBehaviour
         timer = reloadTime;
         fuse.SetActive(false);
         cannonBall.SetActive(false);
+        IsInRange = false;
+        IsInFireMode = false;
     }
 
     void Update()
     {
-        timer -= Time.deltaTime;
+        if (IsInRange || IsInFireMode)
+        {
+            timer -= Time.deltaTime;
+        }
         DeactivateCannonBall();
     }
 
     
     void FixedUpdate()
     {
-        //aiming -> firing -> reloading
-        if (timer <= reloadTime * 0.2)
+        if (IsInRange)
         {
-            if (timer <= 0)
+            if (timer <= reloadTime * 0.4)
             {
-                Firecannon();
+                fuse.SetActive(true);
+                IsInFireMode = true;
             }
             else
             {
-                fuse.SetActive(true);
+                Aimcannon();
             }
         }
-        else if(timer <= reloadTime * 0.8)
+        if (IsInFireMode && timer <= 0)
         {
-            Aimcannon();
+            Firecannon();
         }
     }
     //rotate cannon into player
@@ -69,6 +75,7 @@ public class CanonFire : MonoBehaviour
         cannonBallRb.AddForce(direction * cannonBallSpeed, ForceMode2D.Impulse);
         timer = reloadTime;
         fuse.SetActive(false);
+        IsInFireMode = false;
     }
     //deactivate cannon ball outside view
     private void DeactivateCannonBall()
@@ -79,6 +86,22 @@ public class CanonFire : MonoBehaviour
             cannonBall.SetActive(false);
             cannonBallRb.linearVelocity = Vector2.zero;
             cannonBallRb.angularVelocity = 0;
+        }
+    }
+    //is in range?
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            IsInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            IsInRange = false;
         }
     }
 }

@@ -45,5 +45,8 @@ TagManager:
   - name: Canon
     uniqueID: 2958874473
     locked: 0
+  - name: Player
+    uniqueID: 2378302585
+    locked: 0
   m_RenderingLayers:
   - Default

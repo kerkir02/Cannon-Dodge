@@ -1,10 +1,13 @@
 
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
     [SerializeField] private float braking = 0.97f;
+    [SerializeField] private List<GameObject> livesList;
+    public int livesNumber { get; private set; } = 3;
 
     private float yBorder = 4f;
     private float xLBorder = -8f;
@@ -16,12 +19,19 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
 
     private Vector2 direction;
+    private bool canTakeDamage;
 
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        canTakeDamage = true;
+    }
+
+    void Update()
+    {
+        GameOver();
     }
 
     void FixedUpdate()
@@ -77,6 +87,34 @@ public class PlayerMovement : MonoBehaviour
         if (verticalInput == 0 && horizontalInput == 0)
         {
             rb.linearVelocity *= braking;
+        }
+    }
+
+    //loose live
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!canTakeDamage) return;
+        if (other.CompareTag("CanonBall") && canTakeDamage)
+        {
+            canTakeDamage = false;
+            other.gameObject.SetActive(false);
+            livesNumber--;
+            livesList[livesNumber].SetActive(false);
+            //Debug.Log("HIT. Lives remain: " + livesNumber);
+            Invoke(nameof(ResetDamage), 0.2f);
+        }
+    }
+    private void ResetDamage()
+    {
+        canTakeDamage = true;
+    }
+
+    //game over
+    private void GameOver()
+    {
+        if(livesNumber <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 }
