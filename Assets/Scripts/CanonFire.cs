@@ -8,10 +8,13 @@ public class CanonFire : MonoBehaviour
     [SerializeField] private GameObject cannonBall;
     [SerializeField] private GameObject fuse;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject fireEffect;
+    [SerializeField] private AudioClip fireSound;
 
     private GameObject player;
     private Rigidbody2D cannonRb;
     private Rigidbody2D cannonBallRb;
+    private AudioSource cannonAudio;
 
     private Vector2 direction;
     private float timer;
@@ -23,6 +26,7 @@ public class CanonFire : MonoBehaviour
     {
         cannonRb = GetComponent<Rigidbody2D>();
         cannonBallRb = cannonBall.GetComponent<Rigidbody2D>();
+        cannonAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
 
         timer = reloadTime;
@@ -70,12 +74,14 @@ public class CanonFire : MonoBehaviour
     //
     private void Firecannon()
     {
+        Instantiate(fireEffect, firePoint.transform.position, transform.rotation);
         cannonBall.transform.position = firePoint.transform.position;
         cannonBall.SetActive(true);
         cannonBallRb.AddForce(direction * cannonBallSpeed, ForceMode2D.Impulse);
         timer = reloadTime;
         fuse.SetActive(false);
         IsInFireMode = false;
+        cannonAudio.PlayOneShot(fireSound, 1f);
     }
     //deactivate cannon ball outside view
     private void DeactivateCannonBall()

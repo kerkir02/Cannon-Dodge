@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 10;
     [SerializeField] private float braking = 0.97f;
     [SerializeField] private List<GameObject> livesList;
+    [SerializeField] GameObject destroyEffect;
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip destroySound;
     public int livesNumber { get; private set; } = 3;
 
     private float yBorder = 4f;
@@ -22,10 +25,12 @@ public class PlayerMovement : MonoBehaviour
     private bool canTakeDamage;
 
     private Rigidbody2D rb;
+    private AudioSource playerAudio;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerAudio = GetComponent<AudioSource>();
         canTakeDamage = true;
     }
 
@@ -96,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         if (!canTakeDamage) return;
         if (other.CompareTag("CanonBall") && canTakeDamage)
         {
+            playerAudio.PlayOneShot(hitSound, 0.1f);
             canTakeDamage = false;
             other.gameObject.SetActive(false);
             livesNumber--;
@@ -114,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(livesNumber <= 0)
         {
+            AudioSource.PlayClipAtPoint(destroySound, transform.position, 1f);
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
     }
