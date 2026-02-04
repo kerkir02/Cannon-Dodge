@@ -6,15 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
     [SerializeField] private float braking = 0.97f;
+    [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private List<GameObject> livesList;
     [SerializeField] GameObject destroyEffect;
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip destroySound;
     public int livesNumber { get; private set; } = 3;
 
-    private float yBorder = 4f;
-    private float xLBorder = -8f;
-    private float xRBorder = 2f;
+    private float mapBorder = 100f;
 
     private float turnRight = 270f;
 
@@ -45,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         PlayerMove();
-        //PlayerBorder();
+        PlayerBorder();
         PlayerStop();        
     }
 
@@ -57,32 +56,36 @@ public class PlayerMovement : MonoBehaviour
             direction = new Vector2(horizontalInput, verticalInput).normalized;
             rb.rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + turnRight;
             rb.AddForce(direction * speed, ForceMode2D.Force);
+            if(rb.linearVelocity.sqrMagnitude > maxSpeed * maxSpeed)
+            {
+                rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+            }
         }
     }
 
     private void PlayerBorder()
     {
         //horizontal border for move
-        if (transform.position.x < xLBorder)
+        if (transform.position.x < -mapBorder)
         {
-            transform.position = new Vector2(xLBorder, transform.position.y);
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            transform.position = new Vector2(mapBorder, transform.position.y);
+            //rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
-        else if (transform.position.x > xRBorder)
+        else if (transform.position.x > mapBorder)
         {
-            transform.position = new Vector2(xRBorder, transform.position.y);
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            transform.position = new Vector2(-mapBorder, transform.position.y);
+            //rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         //vertical border for move
-        if (transform.position.y > yBorder)
+        if (transform.position.y > mapBorder)
         {
-            transform.position = new Vector2(transform.position.x, yBorder);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+            transform.position = new Vector2(transform.position.x, -mapBorder);
+            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         }
-        else if (transform.position.y < -yBorder)
+        else if (transform.position.y < -mapBorder)
         {
-            transform.position = new Vector2(transform.position.x, -yBorder);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+            transform.position = new Vector2(transform.position.x, mapBorder);
+            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         }
     }
 
@@ -98,6 +101,11 @@ public class PlayerMovement : MonoBehaviour
     //loose live
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Finish"))
+        {
+            Debug.Log("You found tresure.");
+            canTakeDamage = false;
+        }
         if (!canTakeDamage) return;
         if (other.CompareTag("CanonBall") && canTakeDamage)
         {

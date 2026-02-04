@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class CanonFire : MonoBehaviour
 {
-    [SerializeField] private float reloadTime = 5f;
+    [SerializeField] private float maxReloadTime = 5f;
+    [SerializeField] private float maxRange = 3f;
     [SerializeField] private float cannonBallSpeed = 5f;
-    [SerializeField] private float cannonBallRange = 30f;
+    [SerializeField] private float cannonBallRange = 50f;
     [SerializeField] private GameObject cannonBall;
     [SerializeField] private GameObject fuse;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject fireEffect;
     [SerializeField] private AudioClip fireSound;
+    [SerializeField] private GameObject range;
 
     private GameObject player;
     private Rigidbody2D cannonRb;
@@ -20,6 +22,7 @@ public class CanonFire : MonoBehaviour
     private float timer;
     private bool IsInRange;
     private bool IsInFireMode;
+    private float reloadTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +32,8 @@ public class CanonFire : MonoBehaviour
         cannonAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
 
+        range.transform.localScale *= Random.Range(1f, maxRange); ;
+        reloadTime = Random.Range(2f, maxReloadTime);
         timer = reloadTime;
         fuse.SetActive(false);
         cannonBall.SetActive(false);
