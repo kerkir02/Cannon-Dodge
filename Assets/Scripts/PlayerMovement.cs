@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         PlayerMove();
-        PlayerBorder();
+        //PlayerBorder();
         PlayerStop();        
     }
 
