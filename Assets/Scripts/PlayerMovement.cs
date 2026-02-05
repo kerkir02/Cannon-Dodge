@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
+    [SerializeField] private float whirlpoolStopTime = 2f;
+    [SerializeField] private float whirlpoolEscapeTime = 2f;
     [SerializeField] private float braking = 0.97f;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private List<GameObject> livesList;
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 direction;
     private bool canTakeDamage;
+    private bool canMove;
+    private bool isInWhirlpool;
 
     private Rigidbody2D rb;
     private AudioSource playerAudio;
@@ -31,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAudio = GetComponent<AudioSource>();
         canTakeDamage = true;
+        canMove = true;
+        isInWhirlpool = false;
     }
 
     void Update()
@@ -51,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     private void PlayerMove()
     {
         //move and rotate boat
-        if (verticalInput != 0 || horizontalInput != 0)
+        if ((verticalInput != 0 || horizontalInput != 0) && canMove)
         {
             direction = new Vector2(horizontalInput, verticalInput).normalized;
             rb.rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + turnRight;
@@ -105,6 +111,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("You found tresure.");
             canTakeDamage = false;
+            canMove = false;
+        }
+        if (other.CompareTag("Whirlpool"))
+        {
+            isInWhirlpool = true;
+            InWhirlpool();
         }
         if (!canTakeDamage) return;
         if (other.CompareTag("CanonBall") && canTakeDamage)
@@ -115,12 +127,41 @@ public class PlayerMovement : MonoBehaviour
             livesNumber--;
             livesList[livesNumber].SetActive(false);
             //Debug.Log("HIT. Lives remain: " + livesNumber);
-            Invoke(nameof(ResetDamage), 0.2f);
+            Invoke(nameof(ResetDamage), 1f);
         }
     }
+
     private void ResetDamage()
     {
         canTakeDamage = true;
+    }
+    //whirlpool
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Whirlpool"))
+        {
+            isInWhirlpool = false;
+        }
+    }
+    private void BackToMove()
+    {
+        CancelInvoke();
+        canMove = true;
+        if (isInWhirlpool)
+        {
+            Invoke(nameof(InWhirlpool), whirlpoolEscapeTime);
+        }
+
+    }
+    private void InWhirlpool()
+    {
+        CancelInvoke();
+        if (isInWhirlpool)
+        {
+            canMove = false;
+            rb.linearVelocity = Vector2.zero;
+            Invoke(nameof(BackToMove), whirlpoolStopTime);
+        }
     }
 
     //game over

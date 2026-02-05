@@ -4,6 +4,7 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hearts;
+    [SerializeField] private GameObject wavesEffect;
 
     private Vector3 heartsPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,16 +16,32 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //camera follow player
+        CameraFollow();
+        HeartsFollow();
+        WavesFollow();
+    }
+    //camera follow player
+    private void CameraFollow()
+    {
         transform.position = new Vector3(
-            player.transform.position.x, 
-            player.transform.position.y, 
+            player.transform.position.x,
+            player.transform.position.y,
             transform.position.z);
-
-        //hearts follow camera
+    }
+    //hearts follow camera
+    private void HeartsFollow()
+    {
         hearts.transform.position = heartsPosition + new Vector3(
             transform.position.x,
             transform.position.y,
             hearts.transform.position.z);
+    }
+    //waves follow camera
+    private void WavesFollow()
+    {
+        wavesEffect.transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            wavesEffect.transform.position.z);
     }
 }

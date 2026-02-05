@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CanonBall
   - Bottle
+  - Whirlpool
   layers:
   - Default
   - TransparentFX
