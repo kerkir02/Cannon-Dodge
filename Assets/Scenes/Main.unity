@@ -536,14 +536,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6707916669762154931, guid: 71cb6f55d206b8744b40ef01bcad1d40, type: 3}
-      propertyPath: maxSize
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6707916669762154931, guid: 71cb6f55d206b8744b40ef01bcad1d40, type: 3}
-      propertyPath: minSize
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8185179038522572360, guid: 71cb6f55d206b8744b40ef01bcad1d40, type: 3}
       propertyPath: m_Name
       value: Whirlpool

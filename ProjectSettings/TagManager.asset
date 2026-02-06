@@ -7,14 +7,15 @@ TagManager:
   - CanonBall
   - Bottle
   - Whirlpool
+  - Land
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Whirlpool
   - 
   - 
   - 

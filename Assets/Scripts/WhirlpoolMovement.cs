@@ -10,6 +10,7 @@ public class WhirlpoolMovement : MonoBehaviour
     private float mapBorder = 100f;
 
     private Vector2 direction;
+    private bool IsStunned;
 
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +21,7 @@ public class WhirlpoolMovement : MonoBehaviour
         float newScale = Random.Range(minSize, maxSize);
         transform.localScale = Vector3.one * newScale;
         speed /= newScale;
+        IsStunned = false;
     }
 
     // Update is called once per frame
@@ -38,15 +40,27 @@ public class WhirlpoolMovement : MonoBehaviour
     //move whirlpool
     private void MoveWhirlpool()
     {
-        rb.linearVelocity = direction * speed;
+        if (!IsStunned)
+        {
+            rb.linearVelocity = direction * speed;
+        }
     }
     //change direction after contact
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Land") || collision.collider.CompareTag("Whirlpool"))
         {
-            direction = (transform.position - other.transform.position).normalized;
+            if (IsStunned) return;
+            IsStunned = true;
+            direction = (transform.position - collision.transform.position).normalized;
+            rb.linearVelocity = Vector2.zero;
+            Invoke(nameof(MoveAgain), 0.5f);
         }
+    }
+    private void MoveAgain()
+    {
+        CancelInvoke(nameof(MoveAgain));
+        IsStunned = false;
     }
 
     private void PlayerBorder()

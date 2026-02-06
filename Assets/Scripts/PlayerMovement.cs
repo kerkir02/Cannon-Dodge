@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void BackToMove()
     {
-        CancelInvoke();
+        CancelInvoke(nameof(InWhirlpool));
         canMove = true;
         if (isInWhirlpool)
         {
@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void InWhirlpool()
     {
-        CancelInvoke();
+        CancelInvoke(nameof(BackToMove));
         if (isInWhirlpool)
         {
             canMove = false;

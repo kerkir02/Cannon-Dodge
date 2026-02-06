@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4449441973578377459}
   - component: {fileID: 188798803614744952}
   - component: {fileID: 3943034336368874306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Oar (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5168535523803397466}
   - component: {fileID: 2189753344488177515}
   - component: {fileID: 3945997192655759141}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 1544428204330771939}
   - component: {fileID: 8058488559884228058}
   - component: {fileID: 2644792317404433425}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 5128519339817824757}
   - component: {fileID: 3327277613856121598}
   - component: {fileID: 6180047878205846489}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 5958020155037329929}
   - component: {fileID: 3786383889288830623}
   - component: {fileID: 4307717702386892159}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Oar
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 4591036459848510921}
   - component: {fileID: 8285135841106957397}
   - component: {fileID: 3436008653046881011}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mast
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -867,7 +867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4446214140380656689}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 2565211371354680065}
   - component: {fileID: 6414453437414699628}
   - component: {fileID: 7864002519334242662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 124048321337299752}
   - component: {fileID: 6441383052834448873}
   - component: {fileID: 8231969390224432055}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1184,7 +1184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5937354604332703923}
   - component: {fileID: 6012157063599147185}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sail
   m_TagString: Player
   m_Icon: {fileID: 0}
