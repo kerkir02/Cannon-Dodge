@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private List<GameObject> livesList;
     [SerializeField] GameObject destroyEffect;
+    [SerializeField] Button nextLevelButton;
+    [SerializeField] Button restartButton;
     [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip destroySound;
     public int livesNumber { get; private set; } = 3;
@@ -37,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
         canTakeDamage = true;
         canMove = true;
         isInWhirlpool = false;
+        nextLevelButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -109,9 +114,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
-            Debug.Log("You found tresure.");
+            //Debug.Log("You found tresure.");
             canTakeDamage = false;
             canMove = false;
+            nextLevelButton.gameObject.SetActive(true);
         }
         if (other.CompareTag("Whirlpool"))
         {
@@ -172,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
             AudioSource.PlayClipAtPoint(destroySound, transform.position, 1f);
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
+            restartButton.gameObject.SetActive(true);
         }
     }
 }
