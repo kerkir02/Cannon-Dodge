@@ -8,6 +8,7 @@ TagManager:
   - Bottle
   - Whirlpool
   - Land
+  - Instruction
   layers:
   - Default
   - TransparentFX

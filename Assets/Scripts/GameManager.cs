@@ -1,25 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject instruction;
     //Buttons management
-    public void Level1Load()
+    public void LevelLoad(int index)
     {
-        SceneManager.LoadScene(1);
+        if(SceneManager.GetActiveScene().buildIndex == 0 && index == 1)
+        {
+            instruction.SetActive(true);
+            StartCoroutine(ShowInstruction(index));
+            return;
+        }
+        SceneManager.LoadScene(index);
     }
-    public void Level2Load()
+    IEnumerator ShowInstruction(int index)
     {
-        SceneManager.LoadScene(2);
-    }
-    public void Level3Load()
-    {
-        SceneManager.LoadScene(3);
-    }
-    public void MenuLoad()
-    {
-        SceneManager.LoadScene(0);
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(index);
     }
     public void NextLevelLoad()
     {

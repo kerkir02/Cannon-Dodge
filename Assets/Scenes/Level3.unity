@@ -11093,12 +11093,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3670337940128183259, guid: f5dca5d759bbc49448bd4141bb33423d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3670337940128183259, guid: f5dca5d759bbc49448bd4141bb33423d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1792156012}
     - target: {fileID: 3670337940128183259, guid: f5dca5d759bbc49448bd4141bb33423d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MenuLoad
+      value: LevelLoad
       objectReference: {fileID: 0}
     - target: {fileID: 4456214941319467111, guid: f5dca5d759bbc49448bd4141bb33423d, type: 3}
       propertyPath: m_text
@@ -13531,6 +13535,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 3761021617788815442, guid: 7468f3f153dc5e549b93ca2df708fa16, type: 3}
+      propertyPath: instruction
+      value: 
+      objectReference: {fileID: 1167019391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

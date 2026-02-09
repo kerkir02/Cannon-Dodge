@@ -19830,6 +19830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 3761021617788815442, guid: 7468f3f153dc5e549b93ca2df708fa16, type: 3}
+      propertyPath: instruction
+      value: 
+      objectReference: {fileID: 1483844467}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
